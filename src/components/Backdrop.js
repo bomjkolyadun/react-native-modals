@@ -1,8 +1,8 @@
 // @flow
 
-import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Animated, Dimensions } from 'react-native';
-import type { BackdropProps } from '../type';
+import React, { Component } from 'react'
+import { StyleSheet, TouchableOpacity, Animated, Dimensions } from 'react-native'
+import type { BackdropProps } from '../type'
 
 export default class Backdrop extends Component<BackdropProps> {
   static defaultProps = {
@@ -11,31 +11,31 @@ export default class Backdrop extends Component<BackdropProps> {
     animationDuration: 2000,
     visible: false,
     useNativeDriver: true,
-    onPress: () => {},
+    onPress: () => { },
   };
 
-  componentWillReceiveProps(nextProps: BackdropProps) {
-    const { visible, useNativeDriver, animationDuration: duration } = this.props;
+  UNSAFE_componentWillReceiveProps(nextProps: BackdropProps) {
+    const { visible, useNativeDriver, animationDuration: duration } = this.props
     if (visible !== nextProps.visible) {
-      const toValue = nextProps.visible ? nextProps.opacity : 0;
+      const toValue = nextProps.visible ? nextProps.opacity : 0
       Animated.timing(this.opacity, {
         toValue,
         duration,
         useNativeDriver,
-      }).start();
+      }).start()
     }
   }
 
   setOpacity = (value) => {
-    this.opacity.setValue(value);
+    this.opacity.setValue(value)
   }
 
   opacity = new Animated.Value(0)
 
   render() {
-    const { onPress, pointerEvents, backgroundColor } = this.props;
-    const { opacity } = this;
-    const { width, height } = Dimensions.get('window');
+    const { onPress, pointerEvents, backgroundColor } = this.props
+    const { opacity } = this
+    const { width, height } = Dimensions.get('window')
     return (
       <Animated.View
         pointerEvents={pointerEvents}
@@ -52,6 +52,6 @@ export default class Backdrop extends Component<BackdropProps> {
           style={StyleSheet.absoluteFill}
         />
       </Animated.View>
-    );
+    )
   }
 }
